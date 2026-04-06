@@ -4,80 +4,74 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 /* --------------------------------
-   Bogie Binary Search Class
+   Train Search Class
 -------------------------------- */
-class BogieBinarySearch {
+class TrainSearch {
 
-    public static boolean binarySearch(String[] bogieIds, String key) {
+    public static boolean searchBogie(String[] bogieIds, String key) {
 
-        int low = 0;
-        int high = bogieIds.length - 1;
+        // Defensive check
+        if (bogieIds == null || bogieIds.length == 0) {
+            throw new IllegalStateException("Train has no bogies to search");
+        }
 
-        while (low <= high) {
-
-            int mid = (low + high) / 2;
-
-            int result = bogieIds[mid].compareTo(key);
-
-            if (result == 0) {
-                return true; // found
-            }
-
-            else if (result < 0) {
-                low = mid + 1; // search right half
-            }
-
-            else {
-                high = mid - 1; // search left half
+        // Linear search
+        for (String id : bogieIds) {
+            if (id.equals(key)) {
+                return true;
             }
         }
 
-        return false; // not found
+        return false;
     }
 }
 
 /* --------------------------------
    Test Class
 -------------------------------- */
-public class BogieBinarySearchTest {
+public class TrainSearchTest {
 
     @Test
-    void testBinarySearch_BogieFound() {
+    void testSearch_BogieFound() {
 
-        String[] bogies = {"BG101","BG205","BG309","BG412","BG550"};
+        String[] bogies = {"BG101","BG205","BG309","BG412"};
 
-        assertTrue(BogieBinarySearch.binarySearch(bogies,"BG309"));
+        assertTrue(TrainSearch.searchBogie(bogies,"BG309"));
     }
 
     @Test
-    void testBinarySearch_BogieNotFound() {
+    void testSearch_BogieNotFound() {
 
-        String[] bogies = {"BG101","BG205","BG309","BG412","BG550"};
+        String[] bogies = {"BG101","BG205","BG309","BG412"};
 
-        assertFalse(BogieBinarySearch.binarySearch(bogies,"BG999"));
+        assertFalse(TrainSearch.searchBogie(bogies,"BG999"));
     }
 
     @Test
-    void testBinarySearch_FirstElementMatch() {
+    void testSearch_EmptyTrainThrowsException() {
 
-        String[] bogies = {"BG101","BG205","BG309","BG412","BG550"};
+        String[] bogies = {};
 
-        assertTrue(BogieBinarySearch.binarySearch(bogies,"BG101"));
+        assertThrows(IllegalStateException.class,
+                () -> TrainSearch.searchBogie(bogies,"BG101"));
     }
 
     @Test
-    void testBinarySearch_LastElementMatch() {
+    void testSearch_ExceptionMessageValidation() {
 
-        String[] bogies = {"BG101","BG205","BG309","BG412","BG550"};
+        String[] bogies = {};
 
-        assertTrue(BogieBinarySearch.binarySearch(bogies,"BG550"));
+        Exception exception = assertThrows(IllegalStateException.class,
+                () -> TrainSearch.searchBogie(bogies,"BG101"));
+
+        assertEquals("Train has no bogies to search", exception.getMessage());
     }
 
     @Test
-    void testBinarySearch_SingleElementArray() {
+    void testSearch_SingleElementArray() {
 
         String[] bogies = {"BG101"};
 
-        assertTrue(BogieBinarySearch.binarySearch(bogies,"BG101"));
+        assertTrue(TrainSearch.searchBogie(bogies,"BG101"));
     }
 }

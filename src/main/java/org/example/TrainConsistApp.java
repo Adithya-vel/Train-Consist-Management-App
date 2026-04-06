@@ -1,7 +1,25 @@
 package org.example;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
+class Bogie {
+    String name;
+    int capacity;
+
+    // Constructor
+    Bogie(String name, int capacity) {
+        this.name = name;
+        this.capacity = capacity;
+    }
+
+    // Display bogie details
+    @Override
+    public String toString() {
+        return name + " - Capacity: " + capacity;
+    }
+}
 
 public class TrainConsistApp {
 
@@ -9,28 +27,26 @@ public class TrainConsistApp {
 
         System.out.println("=== Train Consist Management App ===");
 
-        // Create HashMap to store bogie and capacity
-        Map<String, Integer> bogieCapacity = new HashMap<>();
+        // List to store bogie objects
+        List<Bogie> bogies = new ArrayList<>();
 
-        System.out.println("\nAdding bogie capacity details...");
+        // Adding passenger bogies
+        bogies.add(new Bogie("Sleeper", 72));
+        bogies.add(new Bogie("AC Chair", 56));
+        bogies.add(new Bogie("First Class", 24));
 
-        // Insert bogie-capacity pairs
-        bogieCapacity.put("Sleeper", 72);
-        bogieCapacity.put("AC Chair", 78);
-        bogieCapacity.put("First Class", 24);
-        bogieCapacity.put("Cargo", 100);
-
-        System.out.println("\nBogie Capacity Details:");
-
-        // Iterate through map using entrySet
-        for (Map.Entry<String, Integer> entry : bogieCapacity.entrySet()) {
-
-            String bogieName = entry.getKey();
-            Integer capacity = entry.getValue();
-
-            System.out.println(bogieName + " -> Capacity: " + capacity);
+        System.out.println("\nBefore Sorting:");
+        for (Bogie b : bogies) {
+            System.out.println(b);
         }
 
-        System.out.println("\nTotal Bogie Types Tracked: " + bogieCapacity.size());
+        // Sorting bogies by capacity using Comparator
+        bogies.sort(Comparator.comparingInt(b -> b.capacity));
+
+        System.out.println("\nBogies Sorted by Capacity:");
+
+        for (Bogie b : bogies) {
+            System.out.println(b);
+        }
     }
 }

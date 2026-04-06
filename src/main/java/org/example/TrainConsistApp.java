@@ -1,28 +1,7 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.List;
-
-// Bogie class representing each coach
-class Bogie {
-    String bogieId;
-    String type;
-    int seatCapacity;
-
-    // Constructor
-    public Bogie(String bogieId, String type, int seatCapacity) {
-        this.bogieId = bogieId;
-        this.type = type;
-        this.seatCapacity = seatCapacity;
-    }
-
-    // Display bogie details
-    public void displayBogie() {
-        System.out.println("Bogie ID: " + bogieId +
-                " | Type: " + type +
-                " | Seat Capacity: " + seatCapacity);
-    }
-}
+import java.util.HashSet;
+import java.util.Set;
 
 public class TrainConsistApp {
 
@@ -30,30 +9,27 @@ public class TrainConsistApp {
 
         System.out.println("=== Train Consist Management App ===");
 
-        // Train consist list
-        List<Bogie> trainConsist = new ArrayList<>();
+        // Creating a HashSet to store unique Bogie IDs
+        Set<String> bogieIds = new HashSet<>();
 
-        System.out.println("Train consist initialized.");
+        System.out.println("\nAdding bogie IDs to the train consist...");
 
-        // Adding passenger bogies
-        Bogie b1 = new Bogie("P101", "Sleeper", 72);
-        Bogie b2 = new Bogie("P102", "AC Chair", 60);
-        Bogie b3 = new Bogie("P103", "First Class", 40);
+        // Adding bogie IDs (including duplicates intentionally)
+        bogieIds.add("BG101");
+        bogieIds.add("BG102");
+        bogieIds.add("BG103");
+        bogieIds.add("BG101"); // duplicate
+        bogieIds.add("BG104");
+        bogieIds.add("BG102"); // duplicate
 
-        trainConsist.add(b1);
-        trainConsist.add(b2);
-        trainConsist.add(b3);
+        System.out.println("\nUnique Bogie IDs in the Train Consist:");
 
-        System.out.println("\nPassenger bogies added successfully.");
-
-        // Display consist
-        System.out.println("\nCurrent Train Consist:");
-
-        for (Bogie b : trainConsist) {
-            b.displayBogie();
+        // Display the set
+        for (String id : bogieIds) {
+            System.out.println(id);
         }
 
-        // Display total bogie count
-        System.out.println("\nTotal Bogies: " + trainConsist.size());
+        // Display total unique bogies
+        System.out.println("\nTotal Unique Bogies: " + bogieIds.size());
     }
 }

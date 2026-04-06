@@ -1,7 +1,6 @@
 package org.example;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedList;
 
 public class TrainConsistApp {
 
@@ -9,27 +8,38 @@ public class TrainConsistApp {
 
         System.out.println("=== Train Consist Management App ===");
 
-        // Creating a HashSet to store unique Bogie IDs
-        Set<String> bogieIds = new HashSet<>();
+        // Create LinkedList to maintain ordered bogies
+        LinkedList<String> trainConsist = new LinkedList<>();
 
-        System.out.println("\nAdding bogie IDs to the train consist...");
+        System.out.println("\nInitializing train consist...");
 
-        // Adding bogie IDs (including duplicates intentionally)
-        bogieIds.add("BG101");
-        bogieIds.add("BG102");
-        bogieIds.add("BG103");
-        bogieIds.add("BG101"); // duplicate
-        bogieIds.add("BG104");
-        bogieIds.add("BG102"); // duplicate
+        // Add bogies in order
+        trainConsist.add("Engine");
+        trainConsist.add("Sleeper");
+        trainConsist.add("AC Coach");
+        trainConsist.add("Cargo");
+        trainConsist.add("Guard");
 
-        System.out.println("\nUnique Bogie IDs in the Train Consist:");
+        System.out.println("\nInitial Train Consist:");
+        System.out.println(trainConsist);
 
-        // Display the set
-        for (String id : bogieIds) {
-            System.out.println(id);
+        // Insert Pantry Car at position 2
+        trainConsist.add(2, "Pantry Car");
+
+        System.out.println("\nAfter inserting Pantry Car at position 2:");
+        System.out.println(trainConsist);
+
+        // Remove first and last bogie
+        trainConsist.removeFirst();
+        trainConsist.removeLast();
+
+        System.out.println("\nAfter removing first and last bogie:");
+
+        // Display final train consist
+        for (String bogie : trainConsist) {
+            System.out.println(bogie);
         }
 
-        // Display total unique bogies
-        System.out.println("\nTotal Unique Bogies: " + bogieIds.size());
+        System.out.println("\nFinal Bogie Count: " + trainConsist.size());
     }
 }

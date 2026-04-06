@@ -4,65 +4,80 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 /* --------------------------------
-   Bogie Search Class
+   Bogie Binary Search Class
 -------------------------------- */
-class BogieSearch {
+class BogieBinarySearch {
 
-    public static boolean linearSearch(String[] bogieIds, String searchKey) {
+    public static boolean binarySearch(String[] bogieIds, String key) {
 
-        for (int i = 0; i < bogieIds.length; i++) {
+        int low = 0;
+        int high = bogieIds.length - 1;
 
-            if (bogieIds[i].equals(searchKey)) {
-                return true; // match found
+        while (low <= high) {
+
+            int mid = (low + high) / 2;
+
+            int result = bogieIds[mid].compareTo(key);
+
+            if (result == 0) {
+                return true; // found
+            }
+
+            else if (result < 0) {
+                low = mid + 1; // search right half
+            }
+
+            else {
+                high = mid - 1; // search left half
             }
         }
 
-        return false; // no match found
+        return false; // not found
     }
 }
 
 /* --------------------------------
    Test Class
 -------------------------------- */
-public class BogieSearchTest {
+public class BogieBinarySearchTest {
 
     @Test
-    void testSearch_BogieFound() {
+    void testBinarySearch_BogieFound() {
 
         String[] bogies = {"BG101","BG205","BG309","BG412","BG550"};
 
-        assertTrue(BogieSearch.linearSearch(bogies,"BG309"));
+        assertTrue(BogieBinarySearch.binarySearch(bogies,"BG309"));
     }
 
     @Test
-    void testSearch_BogieNotFound() {
+    void testBinarySearch_BogieNotFound() {
 
         String[] bogies = {"BG101","BG205","BG309","BG412","BG550"};
 
-        assertFalse(BogieSearch.linearSearch(bogies,"BG999"));
+        assertFalse(BogieBinarySearch.binarySearch(bogies,"BG999"));
     }
 
     @Test
-    void testSearch_FirstElementMatch() {
+    void testBinarySearch_FirstElementMatch() {
 
         String[] bogies = {"BG101","BG205","BG309","BG412","BG550"};
 
-        assertTrue(BogieSearch.linearSearch(bogies,"BG101"));
+        assertTrue(BogieBinarySearch.binarySearch(bogies,"BG101"));
     }
 
     @Test
-    void testSearch_LastElementMatch() {
+    void testBinarySearch_LastElementMatch() {
 
         String[] bogies = {"BG101","BG205","BG309","BG412","BG550"};
 
-        assertTrue(BogieSearch.linearSearch(bogies,"BG550"));
+        assertTrue(BogieBinarySearch.binarySearch(bogies,"BG550"));
     }
 
     @Test
-    void testSearch_SingleElementArray() {
+    void testBinarySearch_SingleElementArray() {
 
         String[] bogies = {"BG101"};
 
-        assertTrue(BogieSearch.linearSearch(bogies,"BG101"));
+        assertTrue(BogieBinarySearch.binarySearch(bogies,"BG101"));
     }
 }

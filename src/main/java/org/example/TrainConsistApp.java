@@ -1,6 +1,7 @@
 package org.example;
 
-import java.util.LinkedList;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class TrainConsistApp {
 
@@ -8,38 +9,27 @@ public class TrainConsistApp {
 
         System.out.println("=== Train Consist Management App ===");
 
-        // Create LinkedList to maintain ordered bogies
-        LinkedList<String> trainConsist = new LinkedList<>();
+        // LinkedHashSet to maintain insertion order and uniqueness
+        Set<String> trainFormation = new LinkedHashSet<>();
 
-        System.out.println("\nInitializing train consist...");
+        System.out.println("\nAttaching bogies to the train...");
 
-        // Add bogies in order
-        trainConsist.add("Engine");
-        trainConsist.add("Sleeper");
-        trainConsist.add("AC Coach");
-        trainConsist.add("Cargo");
-        trainConsist.add("Guard");
+        // Adding bogies
+        trainFormation.add("Engine");
+        trainFormation.add("Sleeper");
+        trainFormation.add("Cargo");
+        trainFormation.add("Guard");
 
-        System.out.println("\nInitial Train Consist:");
-        System.out.println(trainConsist);
+        // Attempt to add duplicate
+        trainFormation.add("Sleeper");
 
-        // Insert Pantry Car at position 2
-        trainConsist.add(2, "Pantry Car");
+        System.out.println("\nFinal Train Formation:");
 
-        System.out.println("\nAfter inserting Pantry Car at position 2:");
-        System.out.println(trainConsist);
-
-        // Remove first and last bogie
-        trainConsist.removeFirst();
-        trainConsist.removeLast();
-
-        System.out.println("\nAfter removing first and last bogie:");
-
-        // Display final train consist
-        for (String bogie : trainConsist) {
+        // Print bogies in insertion order
+        for (String bogie : trainFormation) {
             System.out.println(bogie);
         }
 
-        System.out.println("\nFinal Bogie Count: " + trainConsist.size());
+        System.out.println("\nTotal Bogies in Train: " + trainFormation.size());
     }
 }
